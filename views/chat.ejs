@@ -13,15 +13,9 @@
          })
          socket.on('online',function(data){
              console.log(data);
-             try{
              $(document).ready(function(){
               $(".online").remove();
               });
-             }
-             catch(err)
-             {
-                 console.log(err);
-             }
              for(x in data){
             
                  if(data[x]!==null)
