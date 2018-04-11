@@ -1,0 +1,17 @@
+{
+  "name": "socket.io",
+  "version": "1.0.0",
+  "description": "socket.io chat app",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "bharanitharan",
+  "license": "ISC"
+}
