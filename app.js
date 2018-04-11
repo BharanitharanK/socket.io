@@ -18,7 +18,7 @@ app.post('/chat',function(req,res){
 app.get('/chat',function(req,res){
     res.redirect('/');
 })
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
 var con=[{id:'0',uname:'$'}];
 io.on('connection',function(socket){
     socket.on('check',function(username){
