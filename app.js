@@ -19,7 +19,7 @@ app.get('/chat',function(req,res){
     res.redirect('/');
 })
 server.listen(process.env.PORT || 8080);
-var con=[{id:'0',uname:'$'}];
+var con=[];
 io.on('connection',function(socket){
     socket.on('check',function(username){
         val=check(username)
@@ -38,6 +38,8 @@ io.on('connection',function(socket){
         console.log(socket.id,data.user);
         socket.broadcast.emit('message',data);
         socket.emit('message',data);
+        socket.broadcast.emit('online',con);
+        socket.emit('online',con);
     })
     socket.on('disconnect', function() {
         for(x in con){
@@ -47,6 +49,8 @@ io.on('connection',function(socket){
            delete con[x];
         }
        }
+    socket.broadcast.emit('online',con);
+    socket.emit('online',con);
     })
 })
 function connect(id,uname){

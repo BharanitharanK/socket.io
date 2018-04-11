@@ -11,6 +11,31 @@
          socket.on('message',function(data){
             showchat(data);
          })
+         socket.on('online',function(data){
+             console.log(data);
+             try{
+             $(document).ready(function(){
+              $(".online").remove();
+              });
+             }
+             catch(err)
+             {
+                 console.log(err);
+             }
+             for(x in data){
+            
+                 if(data[x]!==null)
+                 {
+                 var conv=document.getElementById("online");
+                 var para=document.createElement('p');
+                 para.className='online';
+                 para.appendChild(document.createTextNode(data[x].name));
+                 para.appendChild(document.createElement('br'));
+                 conv.appendChild(para);
+			     conv.scrollTop = conv.scrollHeight;
+                 }
+             }
+         })
          socket.on('unplug',function(data){
              console.log(data);
              var conv=document.getElementById("conversation");
@@ -67,6 +92,15 @@
 			background-color: #FF0000;
             float: right;
         }
+        p.online {
+            margin: 4px;
+			padding: 4px 10px 4px 10px;
+			border-radius: 4px;
+			min-width: 50%;
+			max-width: 85%;
+			background-color: #FFFF33;
+            float: left;
+        }
         #submit {
             margin-left: -69px;
         }
@@ -83,6 +117,12 @@
             <input type="text" id="wisdom" class="form-control" size="80" style="padding: 5px; font-size: 1em;width: 400px;" value="" placeholder="enter the text here"/>
             <button type="submit" id="submit" class="glyphicon glyphicon-send btn btn-primary" onclick="return chat()">Send</button>
             </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-xs-12 col-lg-12">
+              <h3>Online members</h3>
+              <div id="online" style="width: 400px; height: 100px; border: 1px solid #ccc; background-color: #eee; padding: 4px; overflow: scroll">
+              </div>
             </div>
         </div>
     </body>
