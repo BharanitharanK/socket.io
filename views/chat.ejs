@@ -13,9 +13,7 @@
          })
          socket.on('online',function(data){
              console.log(data);
-             $(document).ready(function(){
               $(".online").remove();
-              });
              for(x in data){
             
                  if(data[x]!==null)
