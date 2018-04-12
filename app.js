@@ -14,9 +14,9 @@ app.set('view engine', 'ejs');
 var name="";
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/web/index.html');
-    name=req.body.username;
 })
 app.post('/chat',function(req,res){
+    name=req.body.username;
     res.render('chat',{username:name});
     console.log(name);
 })
