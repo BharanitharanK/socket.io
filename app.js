@@ -11,13 +11,11 @@ app.use(express.static('web'));
 app.use(session({secret: "secret"}));
 app.set('views',__dirname+'/views');
 app.set('view engine', 'ejs');
-var name="";
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/web/index.html');
 })
 app.post('/chat',function(req,res){
-    name=req.body.username;
-    res.render('chat',{username:name});
+    res.render('chat',{username:req.body.username});
     console.log(name);
 })
 app.get('/chat',function(req,res){
