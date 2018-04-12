@@ -2,14 +2,19 @@ var express=require('express');
 var app=express();
 var http=require('http');
 var ejs = require('ejs');
-app.use(express.static('web'));
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
 var server=http.createServer(app);
+var session = require('express-session');
 var io=require('socket.io')(server);
-var name="";
+app.use(express.static('web'));
+app.use(session({secret: "secret"}));
 app.set('views',__dirname+'/views');
 app.set('view engine', 'ejs');
+var name="";
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/web/index.html');
+    name=req.body.username;
 })
 app.post('/chat',function(req,res){
     res.render('chat',{username:name});
@@ -21,11 +26,11 @@ app.get('/chat',function(req,res){
 server.listen(process.env.PORT || 8080);
 var con=[];
 io.on('connection',function(socket){
+    
     socket.on('check',function(username){
         val=check(username)
         if(val===-1)
         {
-            name=username;
             socket.emit('success');
         }
         else
