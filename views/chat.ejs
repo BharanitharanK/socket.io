@@ -9,7 +9,13 @@
          <script>
          var socket=io();
          socket.on('message',function(data){
-            showchat(data);
+            if(data.user===document.getElementById("username").value){
+                showuserchat(data);
+            }
+            else
+            {
+                showotherchat(data);
+            }
          })
          socket.on('online',function(data){
              console.log(data);
@@ -38,11 +44,21 @@
                  conv.appendChild(para);
 			     conv.scrollTop = conv.scrollHeight;
          })
-         function showchat(data)
+         function showuserchat(data)
          {
              var conv=document.getElementById("conversation");
              var para=document.createElement('p');
-                 para.className='chat';
+                 para.className='userchat';
+                 para.appendChild(document.createTextNode(data.user+" : "+data.message));
+                 para.appendChild(document.createElement('br'));
+                 conv.appendChild(para);
+			     conv.scrollTop = conv.scrollHeight;
+         }
+         function showotherchat(data)
+         {
+             var conv=document.getElementById("conversation");
+             var para=document.createElement('p');
+                 para.className='otherchat';
                  para.appendChild(document.createTextNode(data.user+" : "+data.message));
                  para.appendChild(document.createElement('br'));
                  conv.appendChild(para);
@@ -66,14 +82,23 @@
         input {
             float: left;
         }
-        p.chat {
+        p.userchat {
 			margin: 4px;
 			padding: 4px 10px 4px 10px;
 			border-radius: 4px;
 			min-width: 50%;
 			max-width: 85%;
-			background-color: #7d7;
+			background-color: #ABEBC6;
             float: left;
+		}
+        p.otherchat {
+			margin: 4px;
+			padding: 4px 10px 4px 10px;
+			border-radius: 4px;
+			min-width: 50%;
+			max-width: 85%;
+			background-color: #85C1E9;
+            float: right;
 		}
         p.disconnected {
             margin: 4px;
@@ -82,7 +107,6 @@
 			min-width: 50%;
 			max-width: 85%;
 			background-color: #FF0000;
-            float: right;
         }
         p.online {
             margin: 4px;
@@ -90,7 +114,7 @@
 			border-radius: 4px;
 			min-width: 50%;
 			max-width: 85%;
-			background-color: #FFFF33;
+			background-color: #FCF3CF;
             float: left;
         }
         #submit {
