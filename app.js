@@ -16,7 +16,6 @@ app.get('/',function(req,res){
 })
 app.post('/chat',function(req,res){
     res.render('chat',{username:req.body.username});
-    console.log(name);
 })
 app.get('/chat',function(req,res){
     res.redirect('/');
