@@ -8,7 +8,11 @@ var server=http.createServer(app);
 var session = require('express-session');
 var io=require('socket.io')(server);
 app.use(express.static('web'));
-app.use(session({secret: "secret"}));
+app.use(session({secret: "secret",
+                resave: false,
+                saveUninitialized: true,
+                cookie: { secure: true }
+              }));
 app.set('views',__dirname+'/views');
 app.set('view engine', 'ejs');
 app.get('/',function(req,res){
